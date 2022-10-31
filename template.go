@@ -47,6 +47,15 @@ func New() *Extemplate {
 	}
 }
 
+// DefinedTemplates returns a list of the names of all templates defined for this template set
+func (x Extemplate) DefinedTemplates() (tmplNames []string) {
+	for k := range x.templates {
+		tmplNames = append(tmplNames, k)
+	}
+
+	return tmplNames
+}
+
 // Delims sets the action delimiters to the specified strings,
 // to be used in subsequent calls to ParseDir.
 // Nested template  definitions will inherit the settings.
