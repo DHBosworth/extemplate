@@ -25,13 +25,13 @@ func newXTmpl() *Extemplate {
 func setup() {
 	x = newXTmpl()
 
-	err := x.ParseDir("examples", []string{".tmpl"})
+	err := x.ParseDir("examples", ".tmpl")
 	if err != nil {
 		panic(err)
 	}
 
 	xFS = newXTmpl()
-	err = x.ParseFS(templateFS, []string{".tmpl"})
+	err = x.ParseFS(templateFS, ".tmpl")
 	if err != nil {
 		panic(err)
 	}
@@ -122,7 +122,7 @@ func BenchmarkExtemplateParseDir(b *testing.B) {
 		"foo": strings.ToLower,
 	})
 	for i := 0; i < b.N; i++ {
-		x.ParseDir("examples", []string{".tmpl"})
+		x.ParseDir("examples", ".tmpl")
 	}
 }
 
@@ -132,6 +132,6 @@ func BenchmarkExtemplateParseFS(b *testing.B) {
 	})
 
 	for i := 0; i < b.N; i++ {
-		x.ParseFS(templateFS, []string{".tmpl"})
+		x.ParseFS(templateFS, ".tmpl")
 	}
 }

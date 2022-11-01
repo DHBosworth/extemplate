@@ -96,7 +96,7 @@ func (x *Extemplate) ExecuteTemplate(wr io.Writer, name string, data interface{}
 	return tmpl.Execute(wr, data)
 }
 
-func (x *Extemplate) ParseFS(fs fs.FS, extensions []string) error {
+func (x *Extemplate) ParseFS(fs fs.FS, extensions ...string) error {
 	files, err := findTemplateFiles(fs, extensions)
 	if err != nil {
 		return err
@@ -162,9 +162,9 @@ func (x *Extemplate) parseFiles(files map[string]*templatefile) error {
 // Default extensions are .html and .tmpl
 // If a template file has {{/* extends "other-file.tmpl" */}} as its first line it will parse that file for base templates.
 // Parsed templates are named relative to the given root directory
-func (x *Extemplate) ParseDir(root string, extensions []string) error {
+func (x *Extemplate) ParseDir(root string, extensions ...string) error {
 	templatesFS := os.DirFS(root)
-	return x.ParseFS(templatesFS, extensions)
+	return x.ParseFS(templatesFS, extensions...)
 }
 
 func findTemplateFiles(templateFs fs.FS, extensions []string) (map[string]*templatefile, error) {
